@@ -1,0 +1,6 @@
+{
+  "name": "Haitham Lab System 2026",
+  "description": "Streamline lab test reporting with customizable templates for patient data and results, allowing easy PDF generation and printing for healthcare professionals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

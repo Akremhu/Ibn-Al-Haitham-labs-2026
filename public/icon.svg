@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="logoOrangeYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#f37021" />
+      <stop offset="100%" stopColor="#f9b233" />
+    </linearGradient>
+    <path id="logoTextPath" d="M 65 16 A 44 44 0 0 1 105 76" fill="none" />
+  </defs>
+  <!-- Background padding circle -->
+  <circle cx="60" cy="60" r="58" fill="#ffffff" />
+  <circle cx="60" cy="60" r="43" stroke="#111111" strokeWidth="0.8" fill="none" />
+  <path d="M 68 18 A 43 43 0 1 0 68 102 A 36 39 0 0 1 68 18" fill="#e31e24" />
+  <path d="M 70 28 A 34 34 0 0 1 70 92" stroke="url(#logoOrangeYellowGrad)" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+  <rect x="42" y="42" width="10" height="36" fill="#1ca845" rx="1.5" />
+  <rect x="61" y="42" width="10" height="36" fill="#3c59be" rx="1.5" />
+  <ellipse cx="51" cy="60" rx="11" ry="6.5" fill="#88c440" transform="rotate(-30 51 60)" />
+  <ellipse cx="59" cy="56" rx="11" ry="6.5" fill="#ffffff" transform="rotate(-30 59 56)" />
+  <circle cx="86" cy="42" r="2.5" fill="#f37021" />
+  <text fill="#1b2d83" fontSize="8.5" fontWeight="900" fontFamily="'Tajawal', 'Cairo', sans-serif">
+    <textPath href="#logoTextPath" startOffset="2%">
+      مركز ابن الهيثم الطبي
+    </textPath>
+  </text>
+</svg>

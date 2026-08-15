@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Tajawal", "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Base style for A4 printable pages - defined on screen so html2pdf can render it with perfect styles */
+.report-page-to-print {
+  box-sizing: border-box !important;
+  position: relative !important;
+  width: 210mm !important;
+  height: 297mm !important;
+  min-height: 297mm !important;
+  max-height: 297mm !important;
+  margin: 0 !important;
+  padding: 12mm 14mm !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+}
+
+.report-page-on-screen-preview {
+  box-sizing: border-box !important;
+  width: 210mm !important;
+  max-width: 210mm !important;
+  min-width: 210mm !important;
+  height: 297mm !important;
+  min-height: 297mm !important;
+  max-height: 297mm !important;
+}
+
+/* Custom styles for print and other minor things */
+@media print {
+  /* أمر إصلاح الهوامش وقص الورقة عند الطباعة لمركز ابن الهيثم */
+  @page {
+    size: A4 portrait; /* تحديد حجم الورقة A4 بالطول */
+    margin: 1.5cm 1.5cm 1.5cm 1.5cm !important; /* فرض هامش أمان أيسر وأيمن لمنع اقتصاص الحروف */
+  }
+
+  html, body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important; /* للحفاظ على الألوان الأصلية للشعار والجدول */
+    print-color-adjust: exact !important;
+    overflow: visible !important;
+  }
+
+  /* Prevent any wrapper element from scaling down, adding margins, borders, or padding, and force overflow visible */
+  #root,
+  #root > div,
+  .print-preview-parent,
+  #printable-report-wrapper,
+  #print-only-target,
+  #pdf-unscaled-export-container,
+  .overflow-x-auto,
+  .overflow-y-auto {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    display: block !important;
+    position: static !important;
+    overflow: visible !important; /* إزالة أي قص للمحتوى في متصفحات الجوال والطباعة */
+  }
+
+  /* Hide absolutely everything else to avoid blank pages and layout pollution */
+  body > div:not(#root),
+  #staff-sidebar,
+  header:not(.letterhead),
+  nav,
+  button,
+  .no-print,
+  .report-preview-container,
+  #printable-report-wrapper > div:not(#print-only-target) {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+  }
+
+  /* Display and style the print-only target container with overflow visible */
+  #print-only-target {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+  }
+
+  /* Override printable page styles for browser-native printing under 1.5cm page margins */
+  .report-page-to-print {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 240mm !important; /* Fill page elegantly under 1.5cm margins */
+    max-height: none !important;
+    padding: 0mm !important; /* Use page margins instead of double padding */
+    margin: 0 !important;
+    page-break-after: always !important;
+    page-break-inside: avoid !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    overflow: visible !important; /* إلغاء overflow: hidden لعدم قص الصفحات في الهواتف */
+  }
+
+  .report-page-to-print:last-child {
+    page-break-after: avoid !important;
+  }
+
+  /* هذا الأمر يضمن عدم تمدد الجدول أو الترويسة خارج حدود الصفحة اليسرى مع تمكين الظهور الكامل للمحتوى */
+  div, table, section, header {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  /* فرض قواعد page-break-inside الشاملة لمنع انقسام المحتوى والجدول والترويسة بطريقة غير متناسقة */
+  .letterhead,
+  header,
+  .patient-info-card,
+  .results-table,
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td,
+  .comments-card,
+  .footer-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
+
+/* Clean scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Flawless desktop and mobile A4 scaling */
+.report-preview-container {
+  width: 210mm !important;
+  max-width: 210mm !important;
+  min-width: 210mm !important;
+  height: 297mm !important;
+  min-height: 297mm !important;
+  max-height: 297mm !important;
+  display: block !important;
+  position: relative !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  background: #ffffff !important;
+}
+
+.report-preview-scale {
+  width: 210mm !important;
+  max-width: 210mm !important;
+  min-width: 210mm !important;
+  height: 297mm !important;
+  min-height: 297mm !important;
+  max-height: 297mm !important;
+  display: block !important;
+  transform-origin: top left !important;
+  flex-shrink: 0 !important;
+}
+
+/* Unscaled container for flawless PDF export on mobile - placed inside a height-0 overflow-hidden parent */
+#pdf-unscaled-export-container {
+  display: block !important;
+  width: 210mm !important;
+  min-width: 210mm !important;
+  max-width: 210mm !important;
+  background: #ffffff !important;
+  visibility: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+}
+
+@media (max-width: 860px) {
+  .report-preview-container {
+    width: calc(100vw - 48px) !important;
+    max-width: calc(100vw - 48px) !important;
+    min-width: calc(100vw - 48px) !important;
+    height: calc(297mm * ((100vw - 48px) / 794)) !important;
+    min-height: calc(297mm * ((100vw - 48px) / 794)) !important;
+    max-height: calc(297mm * ((100vw - 48px) / 794)) !important;
+  }
+  .report-preview-scale {
+    transform: scale(calc((100vw - 48px) / 794)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-preview-container {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    min-width: calc(100vw - 24px) !important;
+    height: calc(297mm * ((100vw - 24px) / 794)) !important;
+    min-height: calc(297mm * ((100vw - 24px) / 794)) !important;
+    max-height: calc(297mm * ((100vw - 24px) / 794)) !important;
+  }
+  .report-preview-scale {
+    transform: scale(calc((100vw - 24px) / 794)) !important;
+  }
+}
+
